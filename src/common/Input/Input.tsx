@@ -64,20 +64,6 @@ const Input = styled.input<Props>`
         return getActiveStyle(props);
     }
   }}
-  ${(props) => {
-    switch (props.placeholder) {
-      case 'active':
-        return getActiveStyle(props);
-      case 'inactive':
-        return;
-      case 'focus':
-        return;
-      case 'validation':
-        return;
-      default:
-        return;
-    }
-  }}
 `;
 
 export default Input;

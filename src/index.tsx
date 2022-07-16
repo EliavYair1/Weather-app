@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import GlobalStyles from './GlobalStyles';
 import theme from './Themes';
 import { ThemeProvider } from 'styled-components';
+import './index.css';
+import GlobalStyles from './GlobalStyles';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
