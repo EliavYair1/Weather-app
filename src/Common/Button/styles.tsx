@@ -18,6 +18,8 @@ const getWhiteStyle = (props: Props) => {
 
 const getPrimaryStyle = (props: Props) => {
   return `
+  
+  padding: 16px 151px;
     box-shadow: -4px 8px 50px 4px rgba(0, 0, 0, 0.16),
     inset -6px 4px 4px 0 rgba(255, 255, 255, 0.1),
     inset 2px -3px 6px 0 rgba(0, 0, 0, 0.1);
@@ -27,27 +29,31 @@ const getPrimaryStyle = (props: Props) => {
 
 const getLinkStyle = (props: Props) => {
   return `
+  color: #222;
+  text-decoration: underline;
+  font-weight: 500;
+  font-family:overpass;
   `;
 };
 
 const getGhostStyle = (props: Props) => {
   return `
+  border: solid 1px #fff;
+  color: #fff;
   `;
 };
-
-const Button = styled.button<Props>`
+export const Caption = styled.p``;
+export const ButtonLayout = styled.button<Props>`
   background: none;
   color: inherit;
   border: none;
   font: inherit;
   cursor: pointer;
   outline: inherit;
-  padding: 16px 54px;
-
   border-radius: 10px;
-  font-size: ${({ theme }) => theme.buttonDefaultSize};
   font-weight: bold;
   line-height: 1.2;
+  font-size: ${({ theme }) => theme.buttonDefaultSize};
   color: ${({ theme }) => theme.white};
 
   ${(props) => {
@@ -63,6 +69,9 @@ const Button = styled.button<Props>`
         return getPrimaryStyle(props);
     }
   }}
+  &:disabled ${Caption} {
+    opacity: 0.4;
+  }
 `;
 
-export default Button;
+export default ButtonLayout;

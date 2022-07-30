@@ -1,69 +1,97 @@
-import { InputVariants } from './types';
+import { InputProps } from './types';
 import styled from 'styled-components';
+
 interface Props {
-  variant?: InputVariants;
+  error?: string;
+  input?: InputProps;
 }
-const getInactiveStyle = (props: Props) => {
-  return `
-  background-color: #f2f2f2;
-  color: #bebebe;
-  line-height: 1.5;
-`;
-};
-const getFocusStyle = (props: Props) => {
-  return `
-  color: #4d4d4d;
-  border: solid 1px #222;
-  background-color: #fff;
-
-`;
-};
-const getActiveStyle = (props: Props) => {
-  return `
-  color: #222;
-  background-color: #f2f2f2;
-
-`;
-};
-const getValidationStyle = (props: Props) => {
-  return `
-   color: #222;
-   border: solid 1px #f0274b;
-   background-color: #fff;
-   &::placeholder {
-    font-size: 14px;
-    color: #f0274b;
-    line-height: 1.25;
-    letter-spacing: normal;
-    
-}
-`;
+const Input: React.FC<InputProps> = ({
+  title,
+  type = 'text',
+  value,
+  onChange,
+  placeholder,
+  error,
+}) => {
+  return (
+    <>
+      <InputContainer error={error}>
+        <InpTitle>{title}</InpTitle>
+        <InputLayout
+          value={value}
+          onChange={onChange}
+          type={type}
+          placeholder={placeholder}
+        />
+      </InputContainer>
+      {error && <Error>{error}</Error>}
+    </>
+  );
 };
 
-const Input = styled.input<Props>`
-  line-height: 1.5;
-  text-align: left;
-  color: #222;
-  font-size: 18px;
+const InputContainer = styled.div<Props>`
   width: 354px;
-  flex-grow: 0;
-  margin: 90px 0 35px;
-  padding: 14px 24px;
+  height: 77px;
   border-radius: 10px;
-  ${(props) => {
-    switch (props.variant) {
-      case 'active':
-        return getActiveStyle(props);
-      case 'inactive':
-        return getInactiveStyle(props);
-      case 'focus':
-        return getFocusStyle(props);
-      case 'validation':
-        return getValidationStyle(props);
-      default:
-        return getActiveStyle(props);
+  display: flex;
+  flex-direction: column;
+  background-color: #f2f2f2;
+  border: none;
+  ::focus {
+    border: solid 1px #222222;
+    background-color: #ffffff;
+  }
+
+  ${(props) =>
+    props.error
+      ? `
+    border: solid 1px #f0274b;
+    ${InpTitle} {
+      color: #f0274b;
+     } `
+      : `
+    :focus-within {
+      border: solid 1px #222;
     }
-  }}
+  `}
 `;
 
+const InpTitle = styled.pre`
+  margin-left: 24px;
+  font-family: inherit;
+  color: #838baa;
+  font-size: 1.4rem;
+  line-height: 1.25;
+  margin-bottom: 4px;
+`;
+
+const InputLayout = styled.input<Props>`
+  all: unset;
+  line-height: 1.5;
+  color: #222;
+  font-size: 1.8rem;
+  flex-grow: 0;
+  border-radius: 10px;
+  ::placeholder {
+    color: #bebebe;
+    padding-left: 24px;
+  }
+`;
+const ActiveStyle = styled(InputLayout)`
+  border: none;
+  color: #222;
+  background-color: #f2f2f2;
+`;
+const FocusStyle = styled(InputLayout)`
+  color: #222222;
+  border: solid 1px #222222;
+  background-color: #ffffff;
+`;
+const Error = styled.p`
+  font-family: inherit;
+  font-size: 1.4rem;
+  line-height: 1.25;
+  color: #f0274b;
+  padding-top: 4px;
+`;
 export default Input;

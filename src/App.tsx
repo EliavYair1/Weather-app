@@ -1,37 +1,38 @@
 import React from 'react';
-import styled from 'styled-components';
-import './App.css';
+import styled from 'styled-components/macro';
 import Button from './common/Button/Button';
-import { IconSun } from './common/Icon';
+import { IconMoonDark, IconSunDark } from './common/Icon';
 import Input from './common/Input/Input';
-import ToggleButton from './common/toggle';
-
-/*
-- Finish up the button Component. Add ghost/link styles. 
-- Add disabled state
-- Add option for icons
-- Try to implmenent a toggle component.
-- If you still have time, go to the innput component */
+import ToggleButton from './common/toggle/toggle';
+import { useState } from 'react';
+import Login from './Login';
 
 interface Props {}
 
-const StyledWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: ${({ theme }) => {
-    return theme.white;
-  }};
-`;
 const App: React.FC = () => {
+  const [Checked, setChecked] = useState<Boolean>(true);
+  const [Text, setText] = useState('');
   return (
-    <StyledWrapper>
-      <h1>weather app</h1>
-      <IconSun />
-      <ToggleButton />
-      <Button variant="primary">click</Button>
-      <Input variant="validation" placeholder="Email Account" />
-    </StyledWrapper>
+    <Container>
+      <Login />
+    </Container>
   );
 };
 
+const Container = styled.div`
+  background-color: #b7b7b7b7;
+  padding: 10px;
+`;
+const StyledWrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: ${({ theme }) => {
+    return theme.night;
+  }};
+`;
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 8px;
+  background-color: #f2f2f2f2;
+`;
 export default App;

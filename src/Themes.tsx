@@ -6,18 +6,23 @@ export interface Theme {
   buttonDefaultSize: string;
 }
 
-const lightModeTheme = {
-  black: "#222222",
-  white: "#ffffff",
-  primary: "#48bae4",
-  secondary: "#444e72",
-  buttonDefaultSize: "1.8rem",
+const lightMode = {
+  black: '#222222',
+  white: '#ffffff',
+  primary: '#48bae4',
+  secondary: '#444e72',
+  buttonDefaultSize: '1.8rem',
 };
 
 const darkMode = {
-  primary: "#1a2b55",
+  black: '#222222',
+  white: '#ffffff',
+  primary: '#48bae4',
+  secondary: '#444e72',
+  night: '#444e72',
+  buttonDefaultSize: '1.8rem',
 };
 
-const darkModeTheme = { ...lightModeTheme, ...darkMode };
+const Themes = { ...lightMode, ...darkMode };
 
-export default lightModeTheme;
+export default Themes;
