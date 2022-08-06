@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import Button from '../common/Button/Button';
-import { IconFacebookLogo, IconGoogleLogo } from '../common/Icon';
-import Input from '../common/Input/Input';
-import LogoImg from '../images/Group 33626.svg';
+import Button from '../../common/Button/Button';
+import { IconFacebookLogo, IconGoogleLogo } from '../../common/Icon';
+import Input from '../../common/Input/Input';
+import LogoImg from '../../images/Group 33626.svg';
 import { LoginTypes } from './Types';
-import BGI from '../images/clouds.svg';
+import BGI from '../../images/clouds.svg';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import customMedia from '../utiles/mediaQuery';
-import { ButtonProps } from '../common/Button/types';
+import customMedia from '../../utiles/mediaQuery';
+import { ButtonProps } from '../../common/Button/types';
 
 interface IFormInputs {
   email: string;
