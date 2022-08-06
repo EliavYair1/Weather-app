@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../../common/Button/Button';
-import { IconFacebookLogo, IconGoogleLogo } from '../../common/Icon';
+import { IconFacebookLogo, IconGoogleLogo } from '../../Assests/icons/';
 import Input from '../../common/Input/Input';
 import LogoImg from '../../images/Group 33626.svg';
 import { LoginTypes } from './Types';
@@ -18,7 +18,6 @@ interface IFormInputs {
 const Login: React.FC<LoginTypes> = () => {
   const {
     register,
-    watch,
     formState: { errors },
     handleSubmit,
     trigger,

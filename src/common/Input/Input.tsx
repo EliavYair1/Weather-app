@@ -65,6 +65,7 @@ const InpTitle = styled.p<Props>`
   color: ${(props) => (props.error ? `#f0274b;` : `#838baa;`)};
   font-size: 1.4rem;
   line-height: 1.25;
+  padding-top: 14px;
   margin-bottom: 4px;
 `;
 

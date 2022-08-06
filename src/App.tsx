@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import Button from './common/Button/Button';
-import { IconMoonDark, IconSunDark } from './common/Icon';
-import Input from './common/Input/Input';
-import ToggleButton from './common/toggle/toggle';
-import { useState } from 'react';
+
 import Login from './Pages/Login';
 
 interface Props {
@@ -12,8 +8,8 @@ interface Props {
 }
 
 const App: React.FC<Props> = () => {
-  const [Checked, setChecked] = useState<Boolean>(true);
-  const [Text, setText] = useState('');
+  // const [Checked, setChecked] = useState<Boolean>(true);
+  // const [Text, setText] = useState('');
   return (
     <Container>
       <Login />

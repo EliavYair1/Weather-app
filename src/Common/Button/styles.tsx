@@ -13,7 +13,7 @@ const getWhiteStyle = (props: Props) => {
 const getPrimaryStyle = (props: Props) => {
   return `
   margin-top:40px;
-  padding: 0px 151px;
+  padding: 16px 151px;
     box-shadow: -4px 8px 50px 4px rgba(0, 0, 0, 0.16),
     inset -6px 4px 4px 0 rgba(255, 255, 255, 0.1),
     inset 2px -3px 6px 0 rgba(0, 0, 0, 0.1);
