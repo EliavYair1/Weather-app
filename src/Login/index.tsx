@@ -1,27 +1,35 @@
 import styled from 'styled-components';
-import Button from '../common/Button/styles';
+import Button from '../common/Button/Button';
 import { IconFacebookLogo, IconGoogleLogo } from '../common/Icon';
-import { useState } from 'react';
 import Input from '../common/Input/Input';
 import LogoImg from '../images/Group 33626.svg';
 import { LoginTypes } from './Types';
 import BGI from '../images/clouds.svg';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import customMedia from '../utiles/mediaQuery';
+import { ButtonProps } from '../common/Button/types';
 
 interface IFormInputs {
   email: string;
   password: string;
+  error?: boolean;
+  ref?: string | undefined;
 }
-const onSubmit: SubmitHandler<IFormInputs> = (data) => console.log(data);
 const Login: React.FC<LoginTypes> = () => {
-  const [Email, setEmail] = useState('');
-  const [Password, setPassword] = useState('');
   const {
     register,
+    watch,
     formState: { errors },
     handleSubmit,
-  } = useForm<IFormInputs>({ defaultValues: { email: '', password: '' } });
+    trigger,
+  } = useForm<IFormInputs>({
+    mode: 'onChange',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+  const onSubmit: SubmitHandler<IFormInputs> = (data) => console.log(data);
 
   return (
     <>
@@ -33,50 +41,52 @@ const Login: React.FC<LoginTypes> = () => {
           <LoginCard>
             <CardHeader>Log in</CardHeader>
             <InputsWrapper onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                {...register('email', { required: 'email is required' })}
-                value={Email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                title={'Email account'}
-                // error={'invalid email address.Please try again.'}
-                placeholder="example@example.com..."
-              />
-              <ErrMsg>
-                {errors.email && 'invalid email address.Please try again.'}
-              </ErrMsg>
-              <Input
-                {...register('password', {
-                  required: 'Password is required',
-                  minLength: {
-                    value: 6,
-                    message: 'Min length is 6 characters',
+              <StyledInput
+                {...register('email', {
+                  required: 'invalid email address.Please try again.',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'invalid email address.Please try again.', // JS only: <p>error message</p> TS only support string
                   },
                 })}
-                value={Password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                title={'Email account'}
+                placeholder="example@example.com..."
+                error={errors.email?.message}
+              />
+              <Gapper />
+              <Input
+                {...register('password', {
+                  required: 'Invalid password. Please try again.',
+                  minLength: {
+                    value: 6,
+                    message: '....',
+                  },
+                })}
+                type={'password'}
                 title={'Password'}
-                // error={'this is an error'}
-                type="password"
+                error={errors.password?.message}
                 placeholder="6 characters and digit numbers..."
               />
-              <ErrMsg>
-                {errors.password && 'invalid password. Please try again.'}
-              </ErrMsg>
+
+              <FormBtn
+                onClick={async () => {
+                  const output = await trigger(['email', 'password'], {
+                    shouldFocus: true,
+                  });
+                  console.log(output);
+                }}
+                variant="primary"
+              >
+                Login
+              </FormBtn>
             </InputsWrapper>
-            <Button variant="primary" disabled>
-              Login
-            </Button>
             <LoginSubText>Or log in with</LoginSubText>
             <LinksWrapper>
-              <ButtonStyled variant="link">
+              <ButtonStyled onClick={() => console.log('test')} variant="link">
                 <IconFacebookLogo />
                 login with facebook
               </ButtonStyled>
-              <ButtonStyled variant="link">
+              <ButtonStyled onClick={() => console.log('test')} variant="link">
                 <IconGoogleLogo />
                 login with Goggle
               </ButtonStyled>
@@ -87,8 +97,12 @@ const Login: React.FC<LoginTypes> = () => {
     </>
   );
 };
-interface Props {}
-
+interface Props {
+  Button?: ButtonProps;
+}
+const Gapper = styled.p`
+  margin-bottom: 32px;
+`;
 const LoginContainer = styled.div`
   background-image: linear-gradient(238deg, #47bfdf 100%, #4a91ff 0%),
     linear-gradient(to bottom, #fff, #fff);
@@ -151,7 +165,7 @@ const InputsWrapper = styled.form`
   flex-direction: column;
   align-content: center;
   align-self: center;
-  margin-bottom: 40px;
+  /* gap: 32px; */
 `;
 
 const CardHeader = styled.h1`
@@ -195,6 +209,9 @@ flex-direction:column;
 gap:0;
 `}
 `;
+const FormBtn = styled(Button)<Props>`
+  margin-top: 40px;
+`;
 const ButtonStyled = styled(Button)<Props>`
   color: #222;
   text-decoration: underline;
@@ -205,10 +222,8 @@ const ButtonStyled = styled(Button)<Props>`
 margin-bottom:44px;
   `}
 `;
-const ErrMsg = styled.p`
-  font-family: Overpass;
-  font-size: 14px;
-  margin-top: 2px;
-  color: #f0274b;
+const StyledInput = styled(Input)`
+  margin-bottom: 32px;
 `;
+
 export default Login;

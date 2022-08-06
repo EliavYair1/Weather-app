@@ -1,10 +1,13 @@
 import { InputProps } from './types';
 import styled from 'styled-components';
+import * as React from 'react';
 
 interface Props {
   error?: string;
   input?: InputProps;
+  focus?: string;
 }
+
 const Input: React.FC<InputProps> = ({
   title,
   type = 'text',
@@ -37,7 +40,7 @@ const InputContainer = styled.div<Props>`
   flex-direction: column;
   background-color: #f2f2f2;
   border: none;
-  ::focus {
+  &:focus-within {
     border: solid 1px #222222;
     background-color: #ffffff;
   }
@@ -46,9 +49,9 @@ const InputContainer = styled.div<Props>`
     props.error
       ? `
     border: solid 1px #f0274b;
-    ${InpTitle} {
-      color: #f0274b;
-     } `
+ ${InpTitle}{
+  color: #f0274b;
+ }`
       : `
     :focus-within {
       border: solid 1px #222;
@@ -56,10 +59,10 @@ const InputContainer = styled.div<Props>`
   `}
 `;
 
-const InpTitle = styled.pre`
+const InpTitle = styled.p<Props>`
   margin-left: 24px;
   font-family: inherit;
-  color: #838baa;
+  color: ${(props) => (props.error ? `#f0274b;` : `#838baa;`)};
   font-size: 1.4rem;
   line-height: 1.25;
   margin-bottom: 4px;
@@ -72,26 +75,19 @@ const InputLayout = styled.input<Props>`
   font-size: 1.8rem;
   flex-grow: 0;
   border-radius: 10px;
+  padding-left: 24px;
   ::placeholder {
     color: #bebebe;
-    padding-left: 24px;
   }
 `;
-const ActiveStyle = styled(InputLayout)`
-  border: none;
-  color: #222;
-  background-color: #f2f2f2;
-`;
-const FocusStyle = styled(InputLayout)`
-  color: #222222;
-  border: solid 1px #222222;
-  background-color: #ffffff;
-`;
+
 const Error = styled.p`
   font-family: inherit;
   font-size: 1.4rem;
   line-height: 1.25;
   color: #f0274b;
   padding-top: 4px;
+  margin: 0;
 `;
+
 export default Input;
