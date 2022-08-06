@@ -18,7 +18,6 @@ interface IFormInputs {
 const Login: React.FC<LoginTypes> = () => {
   const {
     register,
-    watch,
     formState: { errors },
     handleSubmit,
     trigger,
